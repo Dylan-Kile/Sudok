@@ -3,30 +3,53 @@ package memeTeam;
 import processing.core.*;
 
 public abstract class Button {
-	int xPos; 
-	int yPos; 
-	int w; 
-	int h; 
-	Button(int xPos, int yPos, int width, int height) {
+	float xPos; 
+	float yPos; 
+	float w; 
+	float h; 
+	PApplet parent;
+	boolean clicked;
+	Button(PApplet p,float xPos, float yPos, float width, float height) {
 		this.xPos = xPos; 
 		this.yPos = yPos; 
 		w = width; 
 		h = height;
+		parent = p;
+		clicked = false;
 	}
+	
 	abstract void display();
 	abstract void editShape();
+	abstract void giveValue(int num);
 	
 	
-	protected int getXPos() {
+	public float getXPos() {
 		return xPos;
 	}
-	protected int getYPos() {
+	public float getYPos() {
 		return yPos;
 	}
-	protected int getWidth() {
+	protected float getWidth() {
 		return w; 
 	}
-	protected int getHeight() {
+	protected float getHeight() {
 		return h;
 	}
+	protected boolean isClicked() {
+		return clicked;
+	}
+	
+	protected PApplet getPApplet() {
+		return parent;
+	}
+	public void click() {
+		clicked =! clicked;
+	}
+	public boolean mouseHovering() {
+		boolean withinX = parent.mouseX>=xPos && parent.mouseX<=xPos+w; 
+		boolean withinY = parent.mouseY>=yPos && parent.mouseY<=yPos+h; 
+		return withinX && withinY;
+	}
+
+
 }

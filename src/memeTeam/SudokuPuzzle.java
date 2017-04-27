@@ -42,22 +42,15 @@ public class SudokuPuzzle {
 		for (int elt = 0; elt < characterArray.length; elt++) {
 			int row = elt/SIZE; 
 			int column = elt%SIZE;
-			if (characterArray[elt] == ".") {
+			if (characterArray[elt].charAt(0) == 46) {
 				puzzle[row][column] = "*";
 			} else {
 				puzzle[row][column] = characterArray[elt];
 			}
 		}
 	}
-	  public void printPuzzle() {
-		    System.out.print("["); 
-		    for (int row = 0; row < puzzle.length; row++) {
-		      for (int col = 0; col < puzzle.length; col++) {
-		        System.out.print(puzzle[row][col]);
-		        System.out.print(", ");
-		      }
-		      System.out.print("]\n[");
-		    }
-		  }
+	public String[][] getPuzzle() {
+		return puzzle;
+	}
 
 }
