@@ -1,11 +1,12 @@
 package memeTeam;
-import java.util.*;
 import processing.core.PApplet;
+import processing.event.KeyEvent;
+import processing.event.MouseEvent;
 public class Main extends PApplet{
 	GUI gui;
 	VisualGrid grid;
-	ArrayList<Button> buttons;
 	String keyDown;
+	static Sound sound;
 	public static void main(String[] args) {
 		PApplet.main("memeTeam.Main");
 	}
@@ -16,47 +17,29 @@ public class Main extends PApplet{
 	public void setup() {
 		SudokuPuzzle puzzle = new SudokuPuzzle(0);
 		grid = new VisualGrid(this);
-		gui = new GUI(this,puzzle.getPuzzle());
-		buttons = gui.getButtons();
+		gui = new GUI(this,puzzle);
 		keyDown = "a";
-
+		Main.sound = new Sound(this);
 	}
 	public void draw() {
 		background(255);
 		grid.display();		
 		gui.display();
-
 	}
-	public void mouseClicked() {
-		Button tempButton = null;
-		for (Button b: buttons) {
-			if (b.mouseHovering()) {
-				tempButton = b;
-				b.click();
-			}
+	
+	public void mouseClicked(MouseEvent e) {
+		gui.mouseClicked(e);
+	}
+	public void keyPressed(KeyEvent e) {
+		if (key >= '0' && key <= '9'){
+			gui.keyPressed(e);
 		}
-		for (Button b: buttons) {
-			if (b instanceof SudokuButton && b.isClicked() && !b.equals(tempButton) && tempButton != null) {
-				b.click();
-			}
+		else if(key == 'm') {
+			sound.toggleBackground();
 		}
 	}
-	public void keyPressed() {
-		if (isNumeric(Character.toString(key))) {
-			keyDown = Character.toString(key);
-			for (Button b: buttons) {
-				if (b instanceof SudokuButton && b.isClicked()) {
-					b.giveValue(Integer.parseInt(keyDown));
-					System.out.println(keyDown);
-				}
-			}
-		}
-	}
+	
 	public void keyReleased() {
 		keyDown = "a";
 	}
-	private static boolean isNumeric(String s) {
-		return s.matches("-?\\d+(\\.\\d+)?");
-	}
-	
 }

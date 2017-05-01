@@ -4,7 +4,8 @@ import java.io.*;
 
 public class SudokuPuzzle {
 	
-	final int SIZE = 9;
+	public static final int SIZE = 9;
+	public static final int SIZESQRT = 3;
 	String[][] puzzle; 
 	String[][] finishedPuzzle;
 	
@@ -12,15 +13,18 @@ public class SudokuPuzzle {
 		puzzle = new String[SIZE][SIZE];
 		finishedPuzzle = new String[SIZE][SIZE];
 		qqwing.QQWing.generateSudokuPuzzle(difficulty);
-		fileReader();
-		
+		fileReader();	
+		for(int i = 0; i < SIZE; i++) {
+			for(int j = 0; j < SIZE; j++) {
+				System.out.print(finishedPuzzle[i][j] + " ");
+			}
+			System.out.print("\n");
+		}
 	}
 	
 	private void fileReader() {
 		String file = "puzzle.txt"; 
-		
 		try {
-			
 			FileReader fileReader = new FileReader(file);
 			BufferedReader bufferedReader = new BufferedReader(fileReader); 
 			String board = bufferedReader.readLine().trim();
@@ -52,8 +56,50 @@ public class SudokuPuzzle {
 	public String[][] getPuzzle() {
 		return puzzle;
 	}
+	
 	public String[][] getFinishedPuzzle() {
 		return finishedPuzzle;
 	}
-
+	
+	public boolean puzzleIsCorrect(String[][] playerPuzzle){
+		for(int i = 0; i < SIZE; i++) {
+			for(int j = 0; j < SIZE; j++) {
+				if(playerPuzzle[i][j] != finishedPuzzle[i][j]) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	public boolean rowIsCorrect(int row, String[][] playerPuzzle) {
+		for(int j = 0; j < SIZE; j++) {
+			if(!finishedPuzzle[row][j].equals(playerPuzzle[row][j])) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean columnIsCorrect(int column, String[][] playerPuzzle) {
+		for(int i = 0; i < SIZE; i++) {
+			if(!playerPuzzle[i][column].equals(finishedPuzzle[i][column])) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean regionIsCorrect(int row, int column, String[][] playerPuzzle) {
+		row -= (row%SIZESQRT);
+		column -= (column%SIZESQRT);
+		for(int i = row; i < row+SIZESQRT; i++) {
+			for(int j = column; j < column+SIZESQRT; j++) {
+				if(!playerPuzzle[i][j].equals(finishedPuzzle[i][j])) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 }

@@ -1,89 +1,116 @@
 package memeTeam;
 import processing.core.PApplet;
+import processing.event.KeyEvent;
+import processing.event.MouseEvent;
+
 import java.util.*;
 public class GUI {
-	String[][] board;
-	String[][] playerBoard;
+	SudokuPuzzle puzzle;
+	SudokuButton[][] board;
 	PApplet parent;
 	ArrayList<Button> buttons;
-	ArrayList<SudokuButton> sudokuButtons;
-	public GUI(PApplet p,String[][] board) {
-		this.board = board;		
-		parent = p;		
-		createSudokuButtons(board.length);
-
-		playerBoard = new String[board.length][]; 
-		for (int i = 0; i < board.length; i++) {
-			playerBoard[i] = board[i].clone();
-		}
-
+	public GUI(PApplet p,SudokuPuzzle puzzle) {
+		this.puzzle = puzzle;
+		this.parent = p;
+		this.parent.textSize(20);
+		createSudokuButtons(puzzle.getPuzzle().length);
 	}
 	public void display() {
-
-		displayNumbers();
+		parent.noStroke();
 		displayButtons();
+		parent.stroke(0);
 	}
 	
-	public void displayNumbers() {
-		int boardSideSize = playerBoard.length;
-		float buffer = parent.height/(boardSideSize+1);
-		parent.textSize(20);
-		for (int row = 0; row < boardSideSize; row++) {
-			for (int col = 0; col < boardSideSize; col++) {
-				String entry = playerBoard[row][col];
-				if (board[row][col] == playerBoard[row][col]) {
-					parent.fill(0);
-				} else {
-					parent.fill(255,50,50);
-				}
-				if (entry != "*") {
-					float spacingX = -parent.textWidth(entry)/2;
-					float spacingY = (parent.textAscent()+parent.textDescent())/2;
-					parent.text(entry, spacingX+buffer+col*buffer,spacingY+buffer+row*buffer);
+	public void keyPressed(KeyEvent e) {		
+		for(int i = 0; i < SudokuPuzzle.SIZE; i++) {
+			for(int j = 0; j < SudokuPuzzle.SIZE; j++) {
+				if(board[i][j].isClicked()) {
+					board[i][j].setValue(Character.toString(e.getKey()));
+					String[][] stringBoard = boardToString();
+					boolean row = puzzle.rowIsCorrect(i,stringBoard);
+					boolean column = puzzle.columnIsCorrect(j, stringBoard);
+					boolean region = puzzle.regionIsCorrect(i, j, stringBoard);
+					if(row || column || region) {
+						Main.sound.correctSection();
+						if(row) {
+							animateCorrect(i, 0, i+1, SudokuPuzzle.SIZE);
+						}
+						if(column) {
+							animateCorrect(0, j, 1, j);
+						}
+						if(region){
+							int startRow = i - i%SudokuPuzzle.SIZESQRT;
+							int startColumn = j - j%SudokuPuzzle.SIZESQRT;
+							animateCorrect(startRow, startColumn, startRow + SudokuPuzzle.SIZESQRT, startColumn + SudokuPuzzle.SIZESQRT);
+						}
+					}
+					if(puzzle.puzzleIsCorrect(stringBoard)) {
+						Main.sound.correctBoard();
+					}
 				}
 			}
 		}
 	}
+	
+	private String[][] boardToString() {
+		String[][] stringBoard = new String[SudokuPuzzle.SIZE][SudokuPuzzle.SIZE];
+		for(int i = 0; i < SudokuPuzzle.SIZE; i++) {
+			for(int j = 0; j < SudokuPuzzle.SIZE; j++) {
+				stringBoard[i][j] = board[i][j].getValue();
+			}
+		}
+		return stringBoard;
+	}
+	
+	public void animateCorrect(int row1, int column1, int row2, int column2) {
+		for(int i = row1; i < row2; i++) {
+			for(int j = column1; j < column2; j++) {
+				board[i][j].animateCorrect();
+			}
+		}
+	}
+	
+	public void animateConflict(int newRow, int newColumn, int oldRow, int oldColumn) { //do when there is an obvious conflict in row/column/section
+		//TO
+		
+	}
+	
+	public void mouseClicked(MouseEvent e) {		
+		for(Button b: buttons) {
+			if(b instanceof SudokuButton) {
+				((SudokuButton) b).handleClick(e, buttons);
+			}
+			else{
+				b.handleClick(e);
+			}
+		}
+	}	
+	
 	private void createSudokuButtons(int numSquares) {
+		this.board = new SudokuButton[SudokuPuzzle.SIZE][SudokuPuzzle.SIZE];
 		float size = parent.height/(numSquares+1);
 		float buffer = parent.height/(numSquares+1)/2;
 		buttons = new ArrayList<Button>();
-		sudokuButtons = new ArrayList<SudokuButton>();
-		for (int row = 0; row < board.length; row++) {
-			for (int col = 0; col < board.length; col++) {
-				if (board[row][col] == "*") {
-					SudokuButton b = new SudokuButton(parent,col*size+buffer,row*size+buffer,size,size);
-					buttons.add(b);
-					sudokuButtons.add(b);
-				} 
-			} 
+		for (int row = 0; row < SudokuPuzzle.SIZE; row++) {
+			for (int col = 0; col < SudokuPuzzle.SIZE; col++) {
+				String value = puzzle.getPuzzle()[row][col];
+				if (value == "*") {
+					board[row][col] = new SudokuButton(parent,col*size+buffer,row*size+buffer,size);
+					
+				} else {
+					board[row][col] = new SudokuButton(parent,col*size+buffer,row*size+buffer,size,value);
+				}
+				buttons.add(board[row][col]);
+			}
 		}
 	}
-	private void displayButtons() {
-		
+	private void displayButtons() {		
 		for (Button b: buttons) {
 			b.display();
-			updatePlayerBoard(b);
-			
-			
 		}
 	}
+	
 	public ArrayList<Button> getButtons() {
 		return buttons;
-	}
-	private void updatePlayerBoard(Button b) {
-		if (b instanceof SudokuButton) {
-			float size = parent.height/(playerBoard.length+1);
-			float buffer = size/2;
-			int row = (int) ((b.getYPos()-buffer)/(size));
-			int col = (int) ((b.getXPos()-buffer)/(size)); 
-			String value;
-			if (b.getValue() == 0) {
-				value = "*";
-			} else {
-				value = "" + b.getValue();
-			}
-			playerBoard[row][col] = value;
-		}
 	}
 }
