@@ -32,14 +32,17 @@ public class Sound {
 	}
 	
 	void correctSection() {
+		correctSection.rewind();
 		correctSection.play();
 	}
 	
 	void correctBoard() {
+		correctBoard.rewind();
 		correctBoard.play();
 	}
 	
 	void invalidEntry() {
+		invalidEntry.rewind();
 		invalidEntry.play();
 	}	
 }

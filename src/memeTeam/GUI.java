@@ -94,7 +94,7 @@ public class GUI {
 		}
 	}
 	
-	public void animateConflict(int newRow, int newColumn, int oldRow, int oldColumn) { //do when there is an obvious conflict in row/column/section
+	public void animateConflict(int row1, int column1, int row2, int column2) { //do when there is an obvious conflict in row/column/section
 		//TO
 		
 	}
