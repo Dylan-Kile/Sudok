@@ -29,4 +29,10 @@ public class PauseScreen extends Screen {
 		
 	}
 
+	@Override
+	public void arrowInput(int keyCode) {
+		//Do nothing
+		
+	}
+
 }

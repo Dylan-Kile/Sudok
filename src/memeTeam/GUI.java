@@ -32,6 +32,7 @@ public class GUI {
 		if (transitionTime) {
 			transitionTo(newScreen);
 		}
+
  	}
 	public void mouseClicked(MouseEvent e) {
 		for (String s: screens.keySet()) {
@@ -44,6 +45,7 @@ public class GUI {
 			transitionTo(newScreen);
 		}
 	}
+	
 	public void transitionTo(String screenKey) {
 		for (String s: screens.keySet()) {
 			Screen screen = screens.get(s);
@@ -57,8 +59,14 @@ public class GUI {
 			}
 		}
 		transitionTime = false;
+	}
+	public void arrowInput(int keyCode) {
+		if (newScreen == "sudoku") {
+			screens.get(newScreen).arrowInput(keyCode);
+		}
 		
 	}
+
 }
 	
 	

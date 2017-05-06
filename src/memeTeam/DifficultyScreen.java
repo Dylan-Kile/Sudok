@@ -27,4 +27,10 @@ public class DifficultyScreen extends Screen {
 		
 	}
 
+	@Override
+	public void arrowInput(int keyCode) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

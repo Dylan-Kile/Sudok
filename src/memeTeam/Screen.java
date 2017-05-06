@@ -21,6 +21,7 @@ public abstract class Screen {
 	public abstract void showScreen(); 
 	public abstract void keyPressed(KeyEvent e);
 	public abstract void mouseClicked(MouseEvent e);
+	public abstract void arrowInput(int keyCode);
 
 	
 	protected PApplet getPApplet() {
@@ -44,6 +45,7 @@ public abstract class Screen {
 	public void setStateOfScreen(boolean newState) {
 		isUp = newState;
 	}
+
 
 	
 }	

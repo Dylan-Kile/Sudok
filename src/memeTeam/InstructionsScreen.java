@@ -29,4 +29,10 @@ public class InstructionsScreen extends Screen{
 		
 	}
 
+	@Override
+	public void arrowInput(int keyCode) {
+		//Do Nothing
+		
+	}
+
 }

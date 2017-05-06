@@ -93,6 +93,18 @@ public class SudokuButton extends Button {
 	public boolean isClicked() {
 		return this.isClicked;
 	}
+	
+	public boolean isGiven() {
+		return this.isGiven;
+	}
+	
+	public void click() {
+		if(!this.isClicked) {
+			this.isClicked = true;
+		} else {
+			this.isClicked = false;
+		}
+	}
 
 	@Override
 	void handleClick(MouseEvent e) {

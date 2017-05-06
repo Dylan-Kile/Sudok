@@ -1,10 +1,12 @@
 package memeTeam;
+import java.util.*;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 public class Main extends PApplet{
 	GUI gui;
 	VisualGrid grid;
+	ArrayList<Button> buttons;
 	String keyDown;
 	static Sound sound;
 	TitleScreen titleScreen;
@@ -26,16 +28,19 @@ public class Main extends PApplet{
 	}
 	public void draw() {
 		background(255);
-		grid.display();		
-		gui.display();	
+		grid.display();	
+		gui.display();
+
 	}
-	
 	public void mouseClicked(MouseEvent e) {
 		gui.mouseClicked(e);
 		
 	}
 	public void keyPressed(KeyEvent e) {
 
+		if(key == CODED) {
+			gui.arrowInput(keyCode);
+		}
 		if (key >= '0' && key <= '9'){
 			gui.keyPressed(e);
 		}
@@ -45,8 +50,7 @@ public class Main extends PApplet{
 			gui.transitionTo("pause");
 		}
 	}
-	
 	public void keyReleased() {
 		keyDown = "a";
-	}
+	}	
 }

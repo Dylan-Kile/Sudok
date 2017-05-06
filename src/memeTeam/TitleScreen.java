@@ -87,5 +87,12 @@ public class TitleScreen extends Screen {
 		//Do nothing
 		
 	}
+
+
+	@Override
+	public void arrowInput(int keyCode) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
