@@ -72,7 +72,6 @@ public class GUI {
 	
 	public void animateConflict(int newRow, int newColumn, int oldRow, int oldColumn) { //do when there is an obvious conflict in row/column/section
 		//TO
-		
 	}
 	
 	public void mouseClicked(MouseEvent e) {		
@@ -107,6 +106,45 @@ public class GUI {
 	private void displayButtons() {		
 		for (Button b: buttons) {
 			b.display();
+		}
+	}
+	
+	public void arrowInput(int keyCode) {
+		for(int i = 0; i < SudokuPuzzle.SIZE; i++) {
+			for(int j = 0; j < SudokuPuzzle.SIZE; j++) {
+				if(board[i][j].isClicked()) {
+					if(keyCode == Main.UP) {
+						clickDirection(i,j,0,-1);
+					} else if(keyCode == Main.RIGHT) {
+						clickDirection(i,j,1,0);
+					} else if(keyCode == Main.DOWN) {
+						clickDirection(i,j,0,1);
+					} else if(keyCode == Main.LEFT) {
+						clickDirection(i,j,-1,0);
+					}
+					board[i][j].click();
+					return;
+				}
+			}
+		}
+	}
+	
+	private void clickDirection(int row, int column, int xDirection, int yDirection) {
+		for(int i = 0; i < SudokuPuzzle.SIZE; i++) {
+			row += yDirection;
+			column += xDirection;
+			if(row < 0) {
+				row = SudokuPuzzle.SIZE + row;
+			}
+			if(column < 0) {
+				column = SudokuPuzzle.SIZE + column;
+			}
+			row %= SudokuPuzzle.SIZE;
+			column %= SudokuPuzzle.SIZE;
+			if(!board[row][column].isGiven()) {
+				board[row][column].click();
+				return;
+			}			
 		}
 	}
 	
