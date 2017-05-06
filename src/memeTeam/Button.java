@@ -22,6 +22,21 @@ public abstract class Button {
 	abstract void display();
 	abstract void handleClick(MouseEvent e);
 	
+	protected int initializeTextSize(String word) {
+		int textSize = 1;
+		int textUpper = 0; 
+		int textLower = 0;
+		int textWidth = 0;
+		while (textUpper + textLower <= h && textWidth <= w-20 ) {
+			parent.textSize(textSize);
+			textWidth = (int)parent.textWidth(word);
+			textUpper = (int)parent.textAscent(); 
+			textLower = (int)parent.textDescent();
+			textSize += 1;
+		}
+		return textSize - 1;
+	}
+	
 	public float getXPos() {
 		return xPos;
 	}

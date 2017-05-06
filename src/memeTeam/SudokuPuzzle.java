@@ -73,7 +73,7 @@ public class SudokuPuzzle {
 	}
 	public int get1DIndexOfConflictionRow (int row, int col, String[][] playerPuzzle) {
 		for (int j = 0; j < SIZE; j++) {
-			if(j != col && playerPuzzle[row][col] == playerPuzzle[row][j]) {
+			if(j != col && playerPuzzle[row][col].equals(playerPuzzle[row][j])) {
 				return row*SIZE + j;
 			}
 		}
@@ -89,7 +89,7 @@ public class SudokuPuzzle {
 	}
 	public int get1DIndexOfConflictionColumn (int row, int col, String[][] playerPuzzle) {
 		for (int i = 0; i < SIZE; i++) {
-			if (i != row && playerPuzzle[row][col] == playerPuzzle[i][col]) {
+			if (i != row && playerPuzzle[row][col].equals(playerPuzzle[i][col])) {
 				return i*SIZE + col;
 			}
 		}
@@ -109,7 +109,7 @@ public class SudokuPuzzle {
 		int colIndex  = col - col%SIZESQRT;
 		for (int i = rowIndex; i < rowIndex+SIZESQRT; i++) {
 			for (int j = colIndex; j < colIndex+SIZESQRT; j++) {
-				if(i != row && j != col && playerPuzzle[row][col] == playerPuzzle[i][j]) {
+				if(i != row && j != col && playerPuzzle[row][col].equals(playerPuzzle[i][j])) {
 					return i*SIZE+j;
 				}
 			}
