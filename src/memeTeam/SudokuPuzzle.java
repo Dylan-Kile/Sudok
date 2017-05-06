@@ -71,7 +71,14 @@ public class SudokuPuzzle {
 		}
 		return true;
 	}
-	
+	public int get1DIndexOfConflictionRow (int row, int col, String[][] playerPuzzle) {
+		for (int j = 0; j < SIZE; j++) {
+			if(j != col && playerPuzzle[row][col] == playerPuzzle[row][j]) {
+				return row*SIZE + j;
+			}
+		}
+		return -1;
+	} 
 	public boolean rowIsCorrect(int row, String[][] playerPuzzle) {
 		for(int j = 0; j < SIZE; j++) {
 			if(!finishedPuzzle[row][j].equals(playerPuzzle[row][j])) {
@@ -80,7 +87,15 @@ public class SudokuPuzzle {
 		}
 		return true;
 	}
-	
+	public int get1DIndexOfConflictionColumn (int row, int col, String[][] playerPuzzle) {
+		for (int i = 0; i < SIZE; i++) {
+			if (i != row && playerPuzzle[row][col] == playerPuzzle[i][col]) {
+				return i*SIZE + col;
+			}
+		}
+		return -1;
+	}
+
 	public boolean columnIsCorrect(int column, String[][] playerPuzzle) {
 		for(int i = 0; i < SIZE; i++) {
 			if(!playerPuzzle[i][column].equals(finishedPuzzle[i][column])) {
@@ -89,7 +104,18 @@ public class SudokuPuzzle {
 		}
 		return true;
 	}
-	
+	public int get1DIndexOfConflictionRegion (int row, int col, String[][] playerPuzzle) {
+		int rowIndex  = row - row%SIZESQRT; 
+		int colIndex  = col - col%SIZESQRT;
+		for (int i = rowIndex; i < rowIndex+SIZESQRT; i++) {
+			for (int j = colIndex; j < colIndex+SIZESQRT; j++) {
+				if(i != row && j != col && playerPuzzle[row][col] == playerPuzzle[i][j]) {
+					return i*SIZE+j;
+				}
+			}
+		}
+		return -1;
+	}
 	public boolean regionIsCorrect(int row, int column, String[][] playerPuzzle) {
 		row -= (row%SIZESQRT);
 		column -= (column%SIZESQRT);

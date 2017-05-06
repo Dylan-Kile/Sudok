@@ -27,9 +27,32 @@ public class GUI {
 				if(board[i][j].isClicked()) {
 					board[i][j].setValue(Character.toString(e.getKey()));
 					String[][] stringBoard = boardToString();
+					int rowConflict = puzzle.get1DIndexOfConflictionRow(i, j, stringBoard);
+					int colConflict = puzzle.get1DIndexOfConflictionColumn(i, j, stringBoard); 
+					int regionConflict = puzzle.get1DIndexOfConflictionRegion(i, j, stringBoard);
 					boolean row = puzzle.rowIsCorrect(i,stringBoard);
 					boolean column = puzzle.columnIsCorrect(j, stringBoard);
 					boolean region = puzzle.regionIsCorrect(i, j, stringBoard);
+					if (rowConflict != -1 || colConflict != -1 || regionConflict != -1) {
+						int newRow; 
+						int newCol;
+						if (rowConflict != -1) {
+							newRow = rowConflict/SudokuPuzzle.SIZE; 
+							newCol = rowConflict%SudokuPuzzle.SIZE;
+							animateConflict(i,j,newRow,newCol);
+						}
+						if (colConflict != -1) {
+							newRow = colConflict/SudokuPuzzle.SIZE; 
+							newCol = colConflict%SudokuPuzzle.SIZE; 
+							animateConflict(i,j,newRow,newCol);
+						}
+						if (regionConflict != -1) {
+							newRow = regionConflict/SudokuPuzzle.SIZE; 
+							newCol = colConflict%SudokuPuzzle.SIZE;
+						}
+						
+					}
+					
 					if(row || column || region) {
 						Main.sound.correctSection();
 						if(row) {
@@ -48,6 +71,7 @@ public class GUI {
 						Main.sound.correctBoard();
 					}
 				}
+				
 			}
 		}
 	}

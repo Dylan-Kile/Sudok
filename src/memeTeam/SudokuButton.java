@@ -7,14 +7,15 @@ public class SudokuButton extends Button {
 	String value;
 	private boolean isClicked = false;
 	boolean isGiven = false;
+	boolean isConflicting = false;
 	private int textFill;
 	private static final int xBuffer = -5;
 	private static final int yBuffer = 10;
 	
 	public SudokuButton(PApplet p,float xPos, float yPos, float size) {
 		super(p,xPos, yPos, size, size);
-		this.value = "";
-		this.textFill = p.color(255,50,50);
+		this.value = "0";
+		this.textFill = p.color(50,50,220);
 	}
 	
 	public SudokuButton(PApplet p,float xPos, float yPos, float size, String value) {
@@ -29,19 +30,20 @@ public class SudokuButton extends Button {
 		PApplet p = super.getPApplet();
 		if (isClicked) {
 			p.fill(255,255,4,80);
+		} else if (isConflicting) {
+			p.fill(200,20,20);
 		} else {
 			p.fill(255,255,255,30);
 		}
 		super.getPApplet().rect(super.getXPos(), super.getYPos(), super.getWidth(), super.getHeight());
-		if(this.value != "") {
+		if (this.value != "0") {
 			p.fill(this.textFill);
 			p.text(this.value, super.getXPos() + super.getWidth()/2 + xBuffer, super.getYPos() + super.getHeight()/2 + yBuffer);
 		}
 	}
-	
 	public void setValue(String value) {
-		if(value == "0") {
-			this.value = "";
+		if (value.equals("0")) {
+			this.value = "0";
 		} else {
 			this.value = value;
 		}
@@ -74,6 +76,9 @@ public class SudokuButton extends Button {
 	
 	public boolean isClicked() {
 		return this.isClicked;
+	}
+	public void setConflicting(boolean newStatus) {
+		isConflicting = newStatus;
 	}
 
 	@Override
