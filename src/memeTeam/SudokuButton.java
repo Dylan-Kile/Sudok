@@ -10,6 +10,9 @@ public class SudokuButton extends Button {
 	private int textFill;
 	private static final int xBuffer = -5;
 	private static final int yBuffer = 10;
+	private int animationCounter = 0;
+	private boolean correct = false;
+	private static final int animationMaxCount = 30;
 	
 	public SudokuButton(PApplet p,float xPos, float yPos, float size) {
 		super(p,xPos, yPos, size, size);
@@ -27,10 +30,25 @@ public class SudokuButton extends Button {
 	@Override
 	void display() {
 		PApplet p = super.getPApplet();
-		if (isClicked) {
-			p.fill(255,255,4,80);
+		if(animationCounter == 0) {
+			if (isClicked) {
+				p.fill(255,255,4,80);
+			} else {
+				p.fill(255,255,255,30);
+			}			
 		} else {
-			p.fill(255,255,255,30);
+			animationCounter += 1;
+			if(this.correct) {
+				p.fill(50,255,50,80);
+			} else {
+				p.fill(255,50,50,80);
+				if(animationCounter == SudokuButton.animationMaxCount) {
+					this.value = ""; //clear invalid value
+				}
+			}
+			if(animationCounter == SudokuButton.animationMaxCount) {
+				animationCounter = 0;
+			}
 		}
 		super.getPApplet().rect(super.getXPos(), super.getYPos(), super.getWidth(), super.getHeight());
 		if(this.value != "") {
@@ -52,11 +70,13 @@ public class SudokuButton extends Button {
 	}
 	
 	public void animateCorrect() {
-		//TODO: PROBABLY NEED AN ANIMATION HIERARCHY HERE. MAYBE ADD A SPARKLY TEXTURE OVER THE 
+		this.correct = true;
+		animationCounter = 1;
 	}
 	
 	public void animateInvalid() {
-		//TODO: MAYBE VIBRATE NUMBER & TURN RED, THEN CLEAR THE VALUE
+		this.correct = false;
+		animationCounter = 1;
 	}
 	
 	public void handleClick(MouseEvent e, ArrayList<Button> buttons) {
