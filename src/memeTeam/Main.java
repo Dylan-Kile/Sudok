@@ -9,6 +9,7 @@ public class Main extends PApplet{
 	ArrayList<Button> buttons;
 	String keyDown;
 	static Sound sound;
+	static ExplosionEvent explosionEvent;
 	public static void main(String[] args) {
 		PApplet.main("memeTeam.Main");
 	}
@@ -28,7 +29,9 @@ public class Main extends PApplet{
 		background(255);
 		grid.display();		
 		gui.display();
-
+		if(Main.explosionEvent != null) {
+			Main.explosionEvent.display();
+		}
 	}
 	public void mouseClicked(MouseEvent e) {
 		gui.mouseClicked(e);
@@ -42,6 +45,8 @@ public class Main extends PApplet{
 		}
 		else if(key == 'm') {
 			sound.toggleBackground();
+		} else if (key == 'e') { //trigger explosion
+			Main.explosionEvent = new ExplosionEvent(this);
 		}
 	}
 	public void keyReleased() {
