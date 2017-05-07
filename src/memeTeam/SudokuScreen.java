@@ -61,17 +61,15 @@ public class SudokuScreen extends Screen {
 							newRow = regionConflict/SudokuPuzzle.SIZE; 
 							newCol = regionConflict%SudokuPuzzle.SIZE;
 							animateConflict(i,j,newRow,newCol);
-						}
-						
-					}
-					
+						}						
+					}					
 					if(row || column || region) {
 						Main.sound.correctSection();
 						if(row) {
 							animateCorrect(i, 0, i+1, SudokuPuzzle.SIZE);
 						}
 						if(column) {
-							animateCorrect(0, j, 1, j);
+							animateCorrect(0, j, SudokuPuzzle.SIZE, j+1);
 						}
 						if(region){
 							int startRow = i - i%SudokuPuzzle.SIZESQRT;
@@ -81,9 +79,9 @@ public class SudokuScreen extends Screen {
 					}
 					if(puzzle.puzzleIsCorrect(stringBoard)) {
 						Main.sound.correctBoard();
+						Main.explosionEvent = new ExplosionEvent(parent);
 					}
-				}
-				
+				}				
 			}
 		}
 	}

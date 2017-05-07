@@ -9,6 +9,7 @@ public class Main extends PApplet{
 	ArrayList<Button> buttons;
 	String keyDown;
 	static Sound sound;
+	static ExplosionEvent explosionEvent;
 	TitleScreen titleScreen;
 	static boolean duringGame;
 	public static void main(String[] args) {
@@ -16,8 +17,7 @@ public class Main extends PApplet{
 	}
 	public void settings() {
 		size(500,500);
-	}
-	
+	}	
 	public void setup() {
 		grid = new VisualGrid(this);
 		gui = new GUI(this);
@@ -30,14 +30,15 @@ public class Main extends PApplet{
 		background(255);
 		grid.display();	
 		gui.display();
-
+		if(Main.explosionEvent != null) {
+			Main.explosionEvent.display();
+		}
 	}
 	public void mouseClicked(MouseEvent e) {
 		gui.mouseClicked(e);
 		
 	}
 	public void keyPressed(KeyEvent e) {
-
 		if(key == CODED) {
 			gui.arrowInput(keyCode);
 		}
@@ -46,7 +47,12 @@ public class Main extends PApplet{
 		}
 		else if(key == 'm') {
 			sound.toggleBackground();
+
 		} else if (key == 'p' && GUI.newScreen.equals("sudoku")) {
+
+		} else if (key == 'e') { //trigger explosion
+			Main.explosionEvent = new ExplosionEvent(this);
+		} else if (key == 'p' && duringGame) {
 			gui.transitionTo("pause");
 		}
 	}
