@@ -15,9 +15,9 @@ public class SudokuScreen extends Screen {
 	
 	public SudokuScreen(PApplet p, int xPos, int yPos, int xLength, int yLength,boolean isUp) {
 		super(p, xPos, yPos, xLength, yLength, isUp);
-		this.puzzle = new SudokuPuzzle(difficulty);
 		this.parent = p;
 		this.parent.textSize(20);
+		this.puzzle = new SudokuPuzzle(difficulty);
 		createSudokuButtons(puzzle.getPuzzle().length);
 	}
 
@@ -42,7 +42,9 @@ public class SudokuScreen extends Screen {
 					boolean row = puzzle.rowIsCorrect(i,stringBoard);
 					boolean column = puzzle.columnIsCorrect(j, stringBoard);
 					boolean region = puzzle.regionIsCorrect(i, j, stringBoard);
-					if (rowConflict != -1 || colConflict != -1 || regionConflict != -1) {
+					String value = board[i][j].getValue();
+					boolean valueEqualsZero = value.equals("0");
+					if ((rowConflict != -1 || colConflict != -1 || regionConflict != -1) && !valueEqualsZero) {
 						int newRow; 
 						int newCol;
 						if (rowConflict != -1) {
@@ -128,7 +130,7 @@ public class SudokuScreen extends Screen {
 		for (int row = 0; row < SudokuPuzzle.SIZE; row++) {
 			for (int col = 0; col < SudokuPuzzle.SIZE; col++) {
 				String value = puzzle.getPuzzle()[row][col];
-				if (value == "*") {
+				if (value.equals("*")) {
 					board[row][col] = new SudokuButton(parent,col*size+buffer,row*size+buffer,size);
 					
 				} else {

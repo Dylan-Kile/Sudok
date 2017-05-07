@@ -53,7 +53,7 @@ public class SudokuButton extends Button {
 			}
 		}
 		super.getPApplet().rect(super.getXPos(), super.getYPos(), super.getWidth(), super.getHeight());
-		if (this.value != "0") {
+		if (!this.value.equals("0")) {
 			p.fill(this.textFill);
 			p.text(this.value, super.getXPos() + super.getWidth()/2 + xBuffer, super.getYPos() + super.getHeight()/2 + yBuffer);
 		}

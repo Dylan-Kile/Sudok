@@ -46,7 +46,7 @@ public class Main extends PApplet{
 		}
 		else if(key == 'm') {
 			sound.toggleBackground();
-		} else if (key == 'p' && duringGame) {
+		} else if (key == 'p' && GUI.newScreen.equals("sudoku")) {
 			gui.transitionTo("pause");
 		}
 	}

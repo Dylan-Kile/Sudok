@@ -7,7 +7,7 @@ public class StartButton extends Button{
 	PApplet parent;
 	boolean start = false;
 	String text = "START";
-	int textSize;
+	int textSize = 1;
 	StartButton(PApplet p, float xPos, float yPos, float width, float height) {
 		super(p, xPos, yPos, width, height);
 		parent = super.getPApplet();

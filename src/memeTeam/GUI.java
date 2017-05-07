@@ -4,12 +4,13 @@ import java.util.*;
 import processing.event.*;
 public class GUI {
 	Map<String, Screen> screens = new HashMap<>();
-	String previousScreen;
+	static String previousScreen;
 	static boolean transitionTime = false;
-	static String newScreen;
+	static String newScreen = "title";
+	PApplet p;
 	public GUI(PApplet p) {
+		this.p = p;
 		screens.put("title", new TitleScreen(p,0,0,p.width,p.height,true));
-		screens.put("sudoku", new SudokuScreen(p,0,0,p.width,p.height,false));
 		screens.put("instructions", new InstructionsScreen(p,0,0,p.width,p.height,false));
 		screens.put("difficulty", new DifficultyScreen(p,0,0,p.width,p.height,false));
 		screens.put("pause", new PauseScreen(p,0,0,p.width,p.height,false));		
@@ -47,6 +48,9 @@ public class GUI {
 	}
 	
 	public void transitionTo(String screenKey) {
+		if (screenKey.equals("sudoku")) {
+			screens.put(screenKey, new SudokuScreen(p,0,0,p.width,p.height,false));
+		}
 		for (String s: screens.keySet()) {
 			Screen screen = screens.get(s);
 			if (s == screenKey) {
@@ -61,10 +65,12 @@ public class GUI {
 		transitionTime = false;
 	}
 	public void arrowInput(int keyCode) {
-		if (newScreen == "sudoku") {
-			screens.get(newScreen).arrowInput(keyCode);
+		for (String s: screens.keySet()) {
+			Screen screen = screens.get(s); 
+			if (screen.isUp()) {
+				screen.arrowInput(keyCode);				
+			}
 		}
-		
 	}
 
 }
