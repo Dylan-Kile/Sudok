@@ -17,8 +17,7 @@ public class Main extends PApplet{
 	}
 	public void settings() {
 		size(500,500);
-	}
-	
+	}	
 	public void setup() {
 		grid = new VisualGrid(this);
 		gui = new GUI(this);
@@ -40,7 +39,6 @@ public class Main extends PApplet{
 		
 	}
 	public void keyPressed(KeyEvent e) {
-
 		if(key == CODED) {
 			gui.arrowInput(keyCode);
 		}

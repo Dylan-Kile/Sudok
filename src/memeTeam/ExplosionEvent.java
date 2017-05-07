@@ -14,6 +14,12 @@ public class ExplosionEvent {
 	}
 	
 	public void display() {
+		String text = "CONGRATULATIONS!";
+		parent.textSize(parent.displayWidth/(text.length()*4));
+		float x = (parent.width-parent.textWidth(text))/2;
+		float y = (parent.textAscent()+parent.textDescent());
+		parent.fill(0);
+		parent.text(text, x, y);
 		for(Explosion e: explosions) {
 			e.display();
 		}
