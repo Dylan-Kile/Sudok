@@ -7,7 +7,7 @@ public class SudokuButton extends Button {
 	String value;
 	private boolean isClicked = false;
 	boolean isGiven = false;
-	boolean isConflicting = false;
+	boolean clear = false;
 	private int textFill;
 	private static final int xBuffer = -5;
 	private static final int yBuffer = 10;
@@ -44,8 +44,8 @@ public class SudokuButton extends Button {
 				p.fill(50,255,50,80);
 			} else {
 				p.fill(255,50,50,80);
-				if(animationCounter == SudokuButton.animationMaxCount) {
-					this.value = ""; //clear invalid value
+				if(animationCounter == SudokuButton.animationMaxCount && this.clear) {
+					this.value = "0"; //clear invalid value
 				}
 			}
 			if(animationCounter == SudokuButton.animationMaxCount) {
@@ -59,11 +59,7 @@ public class SudokuButton extends Button {
 		}
 	}
 	public void setValue(String value) {
-		if (value.equals("0")) {
-			this.value = "0";
-		} else {
-			this.value = value;
-		}
+		this.value = value;
 	}
 	
 	public String getValue() {
@@ -75,7 +71,8 @@ public class SudokuButton extends Button {
 		animationCounter = 1;
 	}
 	
-	public void animateInvalid() {
+	public void animateInvalid(boolean clear) {
+		this.clear = clear;
 		this.correct = false;
 		animationCounter = 1;
 	}

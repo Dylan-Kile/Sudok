@@ -10,6 +10,8 @@ public class Main extends PApplet{
 	String keyDown;
 	static Sound sound;
 	static ExplosionEvent explosionEvent;
+	TitleScreen titleScreen;
+	static boolean duringGame;
 	public static void main(String[] args) {
 		PApplet.main("memeTeam.Main");
 	}
@@ -18,16 +20,16 @@ public class Main extends PApplet{
 	}
 	
 	public void setup() {
-		SudokuPuzzle puzzle = new SudokuPuzzle(0);
 		grid = new VisualGrid(this);
-		gui = new GUI(this,puzzle);
-		buttons = gui.getButtons();
+		gui = new GUI(this);
 		keyDown = "a";
 		Main.sound = new Sound(this);
+		titleScreen = new TitleScreen(this,0,0,width,height,true);
+		duringGame = false;
 	}
 	public void draw() {
 		background(255);
-		grid.display();		
+		grid.display();	
 		gui.display();
 		if(Main.explosionEvent != null) {
 			Main.explosionEvent.display();
@@ -35,8 +37,10 @@ public class Main extends PApplet{
 	}
 	public void mouseClicked(MouseEvent e) {
 		gui.mouseClicked(e);
+		
 	}
 	public void keyPressed(KeyEvent e) {
+
 		if(key == CODED) {
 			gui.arrowInput(keyCode);
 		}
@@ -47,6 +51,8 @@ public class Main extends PApplet{
 			sound.toggleBackground();
 		} else if (key == 'e') { //trigger explosion
 			Main.explosionEvent = new ExplosionEvent(this);
+		} else if (key == 'p' && duringGame) {
+			gui.transitionTo("pause");
 		}
 	}
 	public void keyReleased() {
