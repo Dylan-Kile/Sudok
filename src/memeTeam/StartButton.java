@@ -31,7 +31,6 @@ public class StartButton extends Button{
 	void handleClick(MouseEvent e) {
 		if (super.wasClicked(e)) {
 			start = true;
-			Main.duringGame = true;
 			GUI.transitionTime = true; 
 			GUI.newScreen = "difficulty";
 		}
@@ -43,7 +42,6 @@ public class StartButton extends Button{
 	}
 	public void resetButton() {
 		start = false;
-		Main.duringGame = false;
 	}
 
 }

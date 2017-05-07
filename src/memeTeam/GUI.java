@@ -48,9 +48,7 @@ public class GUI {
 	}
 	
 	public void transitionTo(String screenKey) {
-		if (screenKey.equals("sudoku")) {
-			screens.put(screenKey, new SudokuScreen(p,0,0,p.width,p.height,false));
-		}
+		newScreen = screenKey;
 		for (String s: screens.keySet()) {
 			Screen screen = screens.get(s);
 			if (s == screenKey) {
@@ -61,6 +59,9 @@ public class GUI {
 				}
 				screen.setStateOfScreen(false);
 			}
+		}
+		if (previousScreen == "difficulty" && screenKey == "sudoku") {
+			screens.put(screenKey, new SudokuScreen(p,0,0,p.width,p.height,true));
 		}
 		transitionTime = false;
 	}

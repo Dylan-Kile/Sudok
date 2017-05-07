@@ -30,7 +30,11 @@ public class SudokuScreen extends Screen {
 		parent.stroke(0);
 		
 	}
-	public void keyPressed(KeyEvent e) {		
+	public void keyPressed(KeyEvent e) {	
+		if (e.getKey() == 'p') {
+			GUI.transitionTime = true; 
+			GUI.newScreen = "pause";
+		}
 		for(int i = 0; i < SudokuPuzzle.SIZE; i++) {
 			for(int j = 0; j < SudokuPuzzle.SIZE; j++) {
 				if(board[i][j].isClicked()) {

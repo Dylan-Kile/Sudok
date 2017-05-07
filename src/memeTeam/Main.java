@@ -11,7 +11,6 @@ public class Main extends PApplet{
 	static Sound sound;
 	static ExplosionEvent explosionEvent;
 	TitleScreen titleScreen;
-	static boolean duringGame;
 	public static void main(String[] args) {
 		PApplet.main("memeTeam.Main");
 	}
@@ -24,7 +23,6 @@ public class Main extends PApplet{
 		keyDown = "a";
 		Main.sound = new Sound(this);
 		titleScreen = new TitleScreen(this,0,0,width,height,true);
-		duringGame = false;
 	}
 	public void draw() {
 		background(255);
@@ -47,13 +45,10 @@ public class Main extends PApplet{
 		}
 		else if(key == 'm') {
 			sound.toggleBackground();
-
-		} else if (key == 'p' && GUI.newScreen.equals("sudoku")) {
-
 		} else if (key == 'e') { //trigger explosion
 			Main.explosionEvent = new ExplosionEvent(this);
-		} else if (key == 'p' && duringGame) {
-			gui.transitionTo("pause");
+		} else if (key == 'p') {
+			gui.keyPressed(e);
 		}
 	}
 	public void keyReleased() {

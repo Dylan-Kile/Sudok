@@ -13,13 +13,16 @@ public class PauseScreen extends Screen {
 
 	@Override
 	public void showScreen() {
-		// TODO Auto-generated method stub
+		parent.background(0);
 		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
+		if (e.getKey() == 'p') {
+			GUI.transitionTime = true; 
+			GUI.newScreen = GUI.previousScreen;
+		}
 		
 	}
 
