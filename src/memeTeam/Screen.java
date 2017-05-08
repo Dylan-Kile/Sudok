@@ -45,6 +45,21 @@ public abstract class Screen {
 	public void setStateOfScreen(boolean newState) {
 		isUp = newState;
 	}
+	public int getTextSize(String text) {
+		int textSize = 1;
+		int textUpper = 0; 
+		int textLower = 0;
+		int textWidth = 0;
+		while (textUpper + textLower <= yLength  && textWidth <= xLength-parent.width/10 ) {
+			parent.textSize(textSize);
+			textWidth = (int)parent.textWidth(text);
+			textUpper = (int)parent.textAscent(); 
+			textLower = (int)parent.textDescent();
+			textSize += 1;
+		}
+		textSize--;
+		return textSize;
+	}
 
 
 	

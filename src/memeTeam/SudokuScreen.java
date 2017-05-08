@@ -38,7 +38,9 @@ public class SudokuScreen extends Screen {
 		for(int i = 0; i < SudokuPuzzle.SIZE; i++) {
 			for(int j = 0; j < SudokuPuzzle.SIZE; j++) {
 				if(board[i][j].isClicked()) {
-					board[i][j].setValue(Character.toString(e.getKey()));
+					if (e.getKey() != 'p') {
+						board[i][j].setValue(Character.toString(e.getKey()));
+					}
 					String[][] stringBoard = boardToString();
 					int rowConflict = puzzle.get1DIndexOfConflictionRow(i, j, stringBoard);
 					int colConflict = puzzle.get1DIndexOfConflictionColumn(i, j, stringBoard); 

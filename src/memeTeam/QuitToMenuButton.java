@@ -1,12 +1,12 @@
 package memeTeam;
 
-import processing.core.*;
+import processing.core.PApplet;
 import processing.event.MouseEvent;
 
-public class InstructionsButton extends Button {
-	int textSize; 
-	String text = "HELP";
-	InstructionsButton(PApplet p, float xPos, float yPos, float width, float height) {
+public class QuitToMenuButton extends Button {
+	String text = "QUIT"; 
+	int textSize = 1;
+	QuitToMenuButton(PApplet p, float xPos, float yPos, float width, float height) {
 		super(p, xPos, yPos, width, height);
 		textSize = super.initializeTextSize(text);
 	}
@@ -19,15 +19,15 @@ public class InstructionsButton extends Button {
 		float x = super.getXPos() + (super.getWidth()-parent.textWidth(text))/2;
 		float y = super.getYPos() + (parent.textAscent()+parent.textDescent()+super.getHeight()/2)/2;
 		parent.text(text, x, y);
-		parent.fill(255);	
+		parent.fill(255);
+		
 	}
 
 	@Override
 	void handleClick(MouseEvent e) {
 		if (super.wasClicked(e)) {
-			GUI.transitionTime = true;
-			GUI.newScreen = "instructions";
-			
+			GUI.transitionTime = true; 
+			GUI.newScreen = "title";
 		}
 		
 	}

@@ -19,6 +19,7 @@ public class GUI {
 		for (String s: screens.keySet()) {
 			Screen screen = screens.get(s);
 			if (screen.isUp()) {
+				
 				screen.showScreen();
 			}
 		}
