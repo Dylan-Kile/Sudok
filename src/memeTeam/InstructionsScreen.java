@@ -44,6 +44,7 @@ public class InstructionsScreen extends Screen{
 		lines.put(10, "General Information:"); 
 		lines.put(11, "Press 'p' to pause and unpause."); 
 		lines.put(12, "Press 'm' to mute and unmute the music.");
+		lines.put(13, "If you win, press 'n' to start a new game.");
 		float x = super.getXPos()+super.getXLength()/24;
 		for (int i = 0; i < lines.size(); i++) {
 			float y = super.getYPos()+super.getYLength()/3 + spacing*i;

@@ -23,26 +23,32 @@ public class Sound {
 	
 	void toggleBackground() {
 		if(background.isPlaying()) {
-			System.out.println("mute");
 			background.pause();
+			muted = true;
 		} else {
-			System.out.println("play");
 			background.play();
+			muted = false;
 		}
 	}
 	
 	void correctSection() {
-		correctSection.rewind();
-		correctSection.play();
+		if(!muted) {
+			correctSection.rewind();
+			correctSection.play();
+		}
 	}
 	
 	void correctBoard() {
-		correctBoard.rewind();
-		correctBoard.play();
+		if(!muted && !correctBoard.isPlaying()) {
+			correctBoard.rewind();
+			correctBoard.play();
+		}
 	}
 	
 	void invalidEntry() {
-		invalidEntry.rewind();
-		invalidEntry.play();
-	}	
+		if(!muted) {
+			invalidEntry.rewind();
+			invalidEntry.play();
+		}
+	}
 }

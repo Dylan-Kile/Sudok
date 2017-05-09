@@ -21,8 +21,8 @@ public class FadingLine {
 		this.start = new Point(x,y);
 		this.end = new Point(x,y);
 		parent.colorMode(Main.HSB, 360, 100, 100);
-		int hue = (int) parent.random(0, 50);
-		this.c = this.parent.color(hue, 100, 50);
+		int hue = (int) parent.random(0, 360);
+		this.c = this.parent.color(hue, 100, 75);
 		this.displayHalfLength = Length;
 		this.displayLength = Length *2;
 		this.speed = (float) 2.5;//pixels per frame

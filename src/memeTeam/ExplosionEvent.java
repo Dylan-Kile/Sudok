@@ -14,12 +14,22 @@ public class ExplosionEvent {
 	}
 	
 	public void display() {
-		String text = "CONGRATULATIONS!";
-		parent.textSize(parent.displayWidth/(text.length()*4));
+		String text = "CONGRATULATIONS!\nPress \"n\" to start a new game";
+		
+		Map<Integer,String> lines = new HashMap<Integer,String>();
+		float spacing = 10 + (parent.textAscent()+parent.textDescent());
+		lines.put(0, "CONGRATULATIONS!");
+		lines.put(1, "Press \"n\" to start a new game"); 
+		parent.fill(parent.color(255,0,255));
+		parent.textSize(30);
 		float x = (parent.width-parent.textWidth(text))/2;
-		float y = (parent.textAscent()+parent.textDescent());
-		parent.fill(0);
-		parent.text(text, x, y);
+		for (int i = 0; i < lines.size(); i++) {
+			float y = parent.height/2 + (parent.textAscent()+ parent.textDescent()) + spacing*i;
+			parent.text(lines.get(i),x,y);
+		}
+		
+		
+		
 		for(Explosion e: explosions) {
 			e.display();
 		}

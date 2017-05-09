@@ -42,7 +42,6 @@ public class TitleScreen extends Screen {
 		start = new StartButton(parent,startX,startY,buttonLength,buttonHeight);
 		instructions = new InstructionsButton(parent,startX,startY + spacingBetweenButtons+buttonHeight,buttonLength,buttonHeight);
 		quit = new QuitButton(parent,startX,startY + 2*(buttonHeight + spacingBetweenButtons),buttonLength,buttonHeight);
-		
 	} 
 
 	public void mouseClicked(MouseEvent e) {

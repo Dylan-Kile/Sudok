@@ -1,7 +1,9 @@
 package memeTeam;
 
 import java.io.*;
-
+//All code in qqwing is borrowed from the following via the GNU liscense:
+//Stephen Ostermiller, QQWing, (2014), GitHub repository, https://github.com/stephenostermiller/qqwing
+//Some of the qqwing code has been adapted for this project
 public class SudokuPuzzle {
 	
 	public static final int SIZE = 9;
@@ -12,7 +14,7 @@ public class SudokuPuzzle {
 	public SudokuPuzzle(int difficulty) {
 		puzzle = new String[SIZE][SIZE];
 		finishedPuzzle = new String[SIZE][SIZE];
-		qqwing.QQWing.generateSudokuPuzzle(difficulty);
+		qqwing.QQWing.generateSudokuPuzzle(difficulty);  
 		fileReader();	
 		for(int i = 0; i < SIZE; i++) {
 			for(int j = 0; j < SIZE; j++) {
@@ -64,7 +66,7 @@ public class SudokuPuzzle {
 	public boolean puzzleIsCorrect(String[][] playerPuzzle){
 		for(int i = 0; i < SIZE; i++) {
 			for(int j = 0; j < SIZE; j++) {
-				if(playerPuzzle[i][j] != finishedPuzzle[i][j]) {
+				if(!playerPuzzle[i][j].equals(finishedPuzzle[i][j])) {
 					return false;
 				}
 			}
