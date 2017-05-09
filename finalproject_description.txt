@@ -1,0 +1,43 @@
+Meme Team Sudoku Project Description
+
+(D) - worked on by Dylan
+(K) - worked on by Karl
+(M) - worked on by Myeongin
+
+Classes
+	(D) Button
+	(D) CloseInstructionsButton
+	(D) DifficultyButton
+	(D) DifficultyScreen
+	(K) ExplodingLine -  One line of the main firework when the user wins. This is our animation hierarchy. It is an line that extends from some center point. Once it reaches a given length it will "explode" and several smaller fadingLines will emit radially from it in a similar fasion.
+	(K) Explosion - Container for multiple Exploding Lines. A full firework
+	(K) ExplosionEvent - The event which controls location and instantiation of Explosions. This is created/called when the user wins the game.
+	(K) FadingLine - The basic unit of the firework. It is made of two points. For the first half of the animation one point extends in a given direction for a given length. Once that length is reached the next point will also take the same path until the points are the same and there is no line. It is kind of like a slinky effect.
+	(D/K) GUI - container class for the Title Screen, Instructions Screen, Difficulty Screen, Pause Screen. Shows whichever is active as determined by other parts of the program & user input.
+	(D) InstructionsButton
+	(D) InstructionsScreen
+	(D/K) Main - contains the draw loop & setup. Controls program state flow and passes on user input to the rest of the project.
+	(D) PauseScreen
+	(K) Point - Simple point used to contain x/y coordinates
+	(D) QuitButton
+	(D) QuitToMenuButton
+	(D) Screen
+	(K) Sound - Background music & game sounds. Provides positive sound if the user correctly completes a region/row/column/game. Provides negative sound if the user tries to put a naiive conflict.
+	(D) StartButton
+	(K) SudokuButton - This is basically a cell on the board. Handles presentation, animation, selection and user input to the cell. 
+	(D/K) SudokuPuzzle - Controller for the puzzle. Queries the QQWing program (see below for citation) to generate a board and populate starter numbers. 
+	(D/K) SudokuScreen - Contains the board of SudokuButtons. Does computation to check for correct sections or invalid inputs. Plays sound/animations accordingly.
+	(D/K) Timer - Generic class to do an event for a given time. This is used to control speed of firework generation when the user beats the game.
+	(D) TitleScreen
+	(D) VisualGrid
+
+Challenges:
+	We had difficulty implementing the GUI. This is primarily since we didn't use a 3rd party GUI designer tool (i.e. SceneBuilder for JavaFX). Pixel manipulation is too much work.
+	We also did not use lambda expressions for out GUI which made the number of classes that we needed for GUI purposes high.
+		
+	
+
+QQWing Folder:
+All code in qqwing folder is borrowed from the following via the GNU liscense:
+stephenostermiller/qqwing, QQWing, (2014), GitHub repository, https://github.com/stephenostermiller/qqwing
+Some of the qqwing code has been adapted for this project

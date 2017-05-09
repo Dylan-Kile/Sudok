@@ -53,6 +53,7 @@ public class SudokuScreen extends Screen {
 					if ((rowConflict != -1 || colConflict != -1 || regionConflict != -1) && !valueEqualsZero) {
 						int newRow; 
 						int newCol;
+						Main.sound.invalidEntry();
 						if (rowConflict != -1) {
 							newRow = rowConflict/SudokuPuzzle.SIZE; 
 							newCol = rowConflict%SudokuPuzzle.SIZE;
@@ -67,7 +68,7 @@ public class SudokuScreen extends Screen {
 							newRow = regionConflict/SudokuPuzzle.SIZE; 
 							newCol = regionConflict%SudokuPuzzle.SIZE;
 							animateConflict(i,j,newRow,newCol);
-						}	
+						}
 					}					
 					if(row || column || region) {
 						Main.sound.correctSection();
