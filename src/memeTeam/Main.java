@@ -49,6 +49,14 @@ public class Main extends PApplet{
 			Main.explosionEvent = new ExplosionEvent(this);
 		} else if (key == 'p') {
 			gui.keyPressed(e);
+		} else if (key == 'n') {
+			if(Main.explosionEvent != null) {
+				grid = new VisualGrid(this);
+				gui = new GUI(this);
+				keyDown = "a";
+				Main.sound = new Sound(this);
+				titleScreen = new TitleScreen(this,0,0,width,height,true);
+			}
 		}
 	}
 	public void keyReleased() {
